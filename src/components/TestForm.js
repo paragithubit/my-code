@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 function TestForm(props) {
 
      const [text,setText] =useState('');
+
                /* Uppercase*/
        const handleupclick =()=>{
           // console.log ('Upper case is clicked');
@@ -34,19 +35,19 @@ function TestForm(props) {
     
       <div className={`mb-3 text-${props.mode === 'light'?'dark':'light'}`}>
        <h1>{props.heading}</h1>
-      <textarea className="form-control "value={text} onChange={handleonchange}  id="exampleFormControlTextarea1" placeholder='Enter the text' rows="8"></textarea>
+      <textarea className="form-control "value={text} onChange={handleonchange}  id="exampleFormControlTextarea1"style={{backgroundColor:props.mode==='dark'?'#13466e':'white'}} placeholder='Enter the text' rows="8"></textarea>
         </div> 
 
-        <button type="button" onClick={handleupclick} className="btn btn-primary">UpperCase</button>
+        <button type="button" disabled={text.length===0} onClick={handleupclick} className="btn btn-primary">UpperCase</button>
 
-        <button type="button " onClick={handleloclick} className="btn btn-primary mx-3">LowerCase</button>
+        <button type="button "disabled={text.length===0} onClick={handleloclick} className="btn btn-primary mx-3">LowerCase</button>
          
-        <button type="button " onClick={handleclclick} className="btn btn-primary ">Clear</button>
+        <button type="button "disabled={text.length===0} onClick={handleclclick}  className="btn btn-primary ">Clear</button>
 
             <div className={`container my-3 text-${props.mode === 'light'?'dark':'light'}`}>
                <h2>Your Text Summary</h2>
-                 <p>{text.split(' ').length}words and  {text.length} char</p>
-                 <p>{0.008 * text.split(" ").length} minute reading time</p>
+                 <p>{text.split(/\s+/).filter((element)=>{return element.length}).length} words and  {text.length} char</p>
+                 <p>{0.008 * text.split(" ").filter((element)=>{return element.length}).length} minute reading time</p>
                     <h3>preview</h3>
                       <p>{text}</p>
           </div>

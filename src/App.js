@@ -1,24 +1,32 @@
 
 import './App.css';
+
 import Navbar from './components/Navbar';
 import Alert from './components/Alert';
 import TestForm from './components/TestForm';
-//import About from './components/About';
+import About from './components/About';
 import {useState} from 'react'
+import { BrowserRouter as Main ,Route,Link,Routes } from 'react-router-dom';
+import Todo from './components/Todo';
+
+
+
+
 
 function App() {
+     
       /* Enable dark mode in TestForm */
     const [mode,setMode]=useState ('light');
     const toogleMode =()=>{
         if(mode=== 'dark'){
            setMode('light')
            document.body.style.backgroundColor='white';
-             showAlert('Enable Light mode ','success');
+             showAlert('Light mode Enable ','success');
         }
           else{
              setMode('dark')
              document.body.style.backgroundColor='#4670af';
-             showAlert('Enable Dark mode ','success');
+             showAlert('Dark mode Enable ','success');
           }
     }
           /* Alert code */
@@ -38,12 +46,25 @@ function App() {
   
   return (
     <>
+    
+     <Main>
      <Navbar title = 'Home' about= 'About' mode={mode} toogleMode={toogleMode}/>
        <Alert alert = {alert}/>
        <div className="container">
-           <TestForm mode ={mode}  showAlert={ showAlert} heading='Enter the Text'/>
-            {/* <About/>*/}
+          <div className='main-container'>
+             <div className='center-container'></div>
+          </div>
+             <Routes>
+            <Route exact path='/' element = { <TestForm mode ={mode}  showAlert={ showAlert} heading='Enter the Text'/>}/>
+            <Route exact path='About' element={ <About mode={mode}/>}/>  
+           <Route exact path='Todo' element={<Todo/>}/>              
+             </Routes>   
          </div>
+         </Main>
+            
+            
+        
+         
     </> 
 
      );
